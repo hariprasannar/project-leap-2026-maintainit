@@ -30,4 +30,22 @@ public class MachineService {
     public void deleteMachine(int id) {
         machineRepository.deleteById(id);
     }
+
+    public Machine updateMachine(int id, Machine machine) {
+
+        Machine existingMachine = machineRepository.findById(id).orElse(null);
+
+        if (existingMachine != null) {
+            existingMachine.setName(machine.getName());
+            existingMachine.setMaintenanceInterval(machine.getMaintenanceInterval());
+            existingMachine.setIntervalType(machine.getIntervalType());
+            existingMachine.setUsageHours(machine.getUsageHours());
+
+            return machineRepository.save(existingMachine);
+        }
+
+        return null;
+    }
+
+
 }
